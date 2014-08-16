@@ -2,4 +2,4 @@
 
 *Make your calculations smoother.*
 
-Make simple math calculations using plain text.
+Do simple math calculations using plain text.
