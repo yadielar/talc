@@ -4,31 +4,36 @@
 
 angular.module('talcApp.controllers', [])
 	.controller('EditorController', ['$scope', function($scope) {
-		this.contents = localStorage.getItem('talcContent') || "";
-		this.parsedContents = [];
-		this.results = [];
+		$scope.editorContents = localStorage.getItem('talcContent') || "";
+		$scope.parsedContents = [];
+		$scope.results = [];
 		this.save = function(){
-			localStorage.setItem('talcContent', this.contents);
-			//console.log("Saved:\n"+this.contents);
+			localStorage.setItem('talcContent', $scope.editorContents);
+			//console.log("Saved:\n"+$scope.editorContents);
 		};
 		this.clear = function(){
 			localStorage.clear();
-			window.location = window.location; // refresh
+			$scope.editorContents = "";
+			$scope.results = [];
 		};
 		this.addResults = function(){
-			var parsed = this.parsedContents;
-			this.results = [];
+			var parsed = $scope.parsedContents;
+			$scope.results = [];
 			for (var i=0, x=parsed.length; i < x; i++) {
-				this.results[i] = {};
-				this.results[i].val = eval(parsed[i]);
+				$scope.results[i] = {};
+				try {
+					$scope.results[i].val = eval(parsed[i]);
+				} catch(err) {
+					console.log(parsed[i]+" is not a valid expression.");
+				}
 			}
-			console.log(this.results);
+			//console.log($scope.results);
 		};
 		this.parse = function(){
-			var contents = this.contents,
+			var contents = $scope.editorContents,
 				currentChar,
 				lineCount = 0,
-				whiteList = ["+","-","*","/","(",")"],
+				operators = ["+","-","*","/","(",")"],
 				clean = [];
 			function isNumber(n) {
 				return !isNaN(parseFloat(n)) && isFinite(n);
@@ -37,7 +42,7 @@ angular.module('talcApp.controllers', [])
 				var prevChar = contents.charAt(i-1),
 					nextChar = contents.charAt(i+1);
 				currentChar = contents.charAt(i);
-				if (whiteList.indexOf(currentChar) > -1 || isNumber(currentChar)) {
+				if (operators.indexOf(currentChar) > -1 || isNumber(currentChar)) {
 					clean[lineCount] = clean[lineCount] || "";
 					clean[lineCount] += currentChar;
 				} else if (currentChar === ".") {
@@ -45,15 +50,18 @@ angular.module('talcApp.controllers', [])
 						clean[lineCount] += currentChar;
 					}
 				} else if (currentChar === "\n") {
+					/*if (clean[lineCount] === undefined) {
+						clean[lineCount] = 0;
+					}*/
 					lineCount++;
 				}
 			}
-			this.parsedContents = clean;
+			$scope.parsedContents = clean;
 			this.addResults();
 			this.save();
-			console.log(this.parsedContents);
+			console.log($scope.parsedContents);
 		};
 	}])
-	.controller('ResultsController', ['$scope', function($scope) {
-		this.results = [];
+	.controller('SettingsController', ['$scope', function($scope) {
+
 	}]);

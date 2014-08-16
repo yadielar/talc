@@ -1,19 +1,19 @@
 <article class="container" ng-controller="EditorController as editorCtrl">
-	<textarea
-		name="talc-sheet"
-		id="talc-editor"
-		rows="10" cols="50"
-		placeholder="Write something here..."
-		ng-model="editorCtrl.contents"
-		ng-keyup="editorCtrl.parse()"
-	>
-		{{editorCtrl.contents}}
-	</textarea>
-	<p>{{editorCtrl.contents}}</p>
-	<div>
-		<input type="button" id="clear" value="Clear changes" ng-click="editorCtrl.clear()"/>
+	<div class="talc-container">
+		<textarea
+			name="talc-sheet"
+			id="talc-editor"
+			rows="10" cols="50"
+			placeholder="Write something here..."
+			ng-model="editorContents"
+			ng-keyup="editorCtrl.parse()"
+		>{{editorContents}}
+		</textarea>
+		<div>
+			<input type="button" id="clear" value="Clear" ng-click="editorCtrl.clear()"/>
+		</div>
+		<ul id="talc-results" ng-init="editorCtrl.parse()">
+			<li ng-repeat="result in results">{{result.val}}</li>
+		</ul>
 	</div>
-	<ul>
-		<li ng-repeat="result in editorCtrl.results">{{result.val}}</li>
-	</ul>
 </article>
