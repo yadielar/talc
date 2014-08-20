@@ -22,9 +22,9 @@ angular.module('talcApp.controllers', [])
 			for (var i=0, x=parsed.length; i < x; i++) {
 				$scope.results[i] = {};
 				try {
-					$scope.results[i].val = eval(parsed[i]);
+					$scope.results[i].val = eval(parsed[i].parsed);
 				} catch(err) {
-					console.log(parsed[i]+" is not a valid expression.");
+					console.log(parsed[i].parsed+" is not a valid expression.");
 				}
 			}
 			//console.log($scope.results);
@@ -42,12 +42,15 @@ angular.module('talcApp.controllers', [])
 				var prevChar = contents.charAt(i-1),
 					nextChar = contents.charAt(i+1);
 				currentChar = contents.charAt(i);
+				clean[lineCount] = clean[lineCount] || {};
+				clean[lineCount].original = clean[lineCount].original || "";
+				clean[lineCount].original += currentChar;
+				clean[lineCount].parsed = clean[lineCount].parsed || "";
 				if (operators.indexOf(currentChar) > -1 || isNumber(currentChar)) {
-					clean[lineCount] = clean[lineCount] || "";
-					clean[lineCount] += currentChar;
+					clean[lineCount].parsed += currentChar;
 				} else if (currentChar === ".") {
 					if ( isNumber(prevChar) && isNumber(nextChar) ) {
-						clean[lineCount] += currentChar;
+						clean[lineCount].parsed += currentChar;
 					}
 				} else if (currentChar === "\n") {
 					/*if (clean[lineCount] === undefined) {
@@ -57,9 +60,9 @@ angular.module('talcApp.controllers', [])
 				}
 			}
 			$scope.parsedContents = clean;
+			console.log($scope.parsedContents);
 			this.addResults();
 			this.save();
-			console.log($scope.parsedContents);
 		};
 	}])
 	.controller('SettingsController', ['$scope', function($scope) {
