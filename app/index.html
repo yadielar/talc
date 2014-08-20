@@ -14,23 +14,24 @@
 	<script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-	<ul class="menu">
-		<li><a href="#/editor">Editor</a></li>
-		<li><a href="#/settings">Settings</a></li>
-	</ul>
+<div class="talc-app">
+	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#/editor">Talc</a>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a class="settings" href="#/settings">Settings</a></li>
+			</ul><!-- /.navbar -->
+		</div><!-- /.container-fluid -->
+	</nav>
 
-	<header class="container">
-		<h1>Talc</h1>
-		<p>Make your calculations smoother.</p>
-	</header>
-
-<!--[if lt IE 7]>
+	<!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-	<div ng-view></div>
+	<div class="talc-view" ng-view></div>
 
 	<!--div>Angular seed app: v<span app-version></span></div-->
+</div>
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>

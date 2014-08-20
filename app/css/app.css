@@ -1,47 +1,90 @@
 /* app css stylesheet */
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+html, body {
+  background-color: #FFF2F5;
 }
-
-.menu:before {
-  content: "[";
+.talc-app .navbar {
+  background-color: #FF7D97;
+  border-color: #FF7D97;
+  margin-bottom: 0;
 }
-
-.menu:after {
-  content: "]";
+.talc-app .navbar-nav {
+  margin: 0 -15px;
 }
-
-.menu > li {
-  display: inline;
+.talc-app .navbar-right {
+  float: right!important;
 }
-
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
+.talc-app .navbar-brand,
+.talc-app .navbar-nav .settings {
+  display: inline-block;
+  border: 0;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+  background-repeat: no-repeat;
   padding: 0;
 }
-
-.talc-container {
+.talc-app .navbar-brand {
+  background-image: url(../img/talc-logo.svg);
+  width: 83px;
+  height: 28px;
+  margin: 10px 0 !important;
+}
+.talc-app .navbar-nav .settings {
+  background-image: url(../img/settings.svg);
+  width: 21px;
+  height: 21px;
+  margin: 0 15px;
+}
+.talc-view .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.talc-app .talc-wrapper {
   position: relative;
-  max-width: 365px;
+  background-color: #FFE6EB;
 }
-#talc-editor {
+.talc-app #talc-editor {
   padding: 10px;
+  width: 90%;
+  max-width: 90%;
+  height: 480px;
+  border: none;
+  background-color: white;
+  resize: none;
 }
-#talc-results {
-  list-style: none;
+.talc-app #talc-editor:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+.talc-app #talc-results {
   position: absolute;
-  top: 10px;
-  right: 40px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
 }
-#talc-results li {
+.talc-app #talc-results li {
+  position: relative;
+  list-style: none;
   font-weight: bold;
+}
+.talc-app #talc-results li .result-original {
+  width: 90%;
+}
+.talc-app #talc-results li .result-num {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  text-align: right;
+}
+
+@media (min-width: 768px) {
+  .talc-app .talc-wrapper {
+    margin-top: 20px;
+    border: 1px solid #FFBFCD;
+  }
 }
