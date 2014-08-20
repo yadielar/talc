@@ -21,13 +21,15 @@ angular.module('talcApp.controllers', [])
 			$scope.results = [];
 			for (var i=0, x=parsed.length; i < x; i++) {
 				$scope.results[i] = {};
+				$scope.results[i].original = parsed[i].original;
 				try {
 					$scope.results[i].val = eval(parsed[i].parsed);
 				} catch(err) {
 					console.log(parsed[i].parsed+" is not a valid expression.");
 				}
+				$scope.results[i].val = $scope.results[i].val || "";
 			}
-			//console.log($scope.results);
+			console.log($scope.results);
 		};
 		this.parse = function(){
 			var contents = $scope.editorContents,

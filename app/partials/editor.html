@@ -14,7 +14,7 @@
 		</div-->
 		<ul id="talc-results" ng-init="editorCtrl.parse()">
 			<li ng-repeat="result in results">
-				<div class="result-original">&nbsp;</div>
+				<div class="result-original">{{result.original}}&nbsp;</div>
 				<div class="result-num">{{result.val}}</span>
 			</li>
 		</ul>

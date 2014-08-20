@@ -44,11 +44,23 @@ html, body {
   position: relative;
   background-color: #FFE6EB;
 }
+/* START: Mirrored styles between editor & results */
+.talc-app #talc-editor,
+.talc-app #talc-results {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+.talc-app #talc-editor,
+.talc-app #talc-results li .result-original {
+  width: 85%;
+  max-width: 85%;
+}
+/* END: Mirrored styles between editor & results */
 .talc-app #talc-editor {
   position: relative;
   padding: 10px;
-  width: 90%;
-  max-width: 90%;
   height: 480px;
   border: none;
   background-color: white;
@@ -66,28 +78,34 @@ html, body {
   right: 0;
   left: 0;
   bottom: 0;
-  padding: 0;
+  padding: 10px;
   margin: 0;
-  z-index: 50;
 }
 .talc-app #talc-results li {
   position: relative;
   list-style: none;
-  font-weight: bold;
 }
 .talc-app #talc-results li .result-original {
-  width: 90%;
+  position: relative;
+  z-index: 50;
 }
 .talc-app #talc-results li .result-num {
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 0;
   text-align: right;
+  font-weight: bold;
+  z-index: 200;
 }
 
 @media (min-width: 768px) {
   .talc-app .talc-wrapper {
     margin-top: 20px;
     border: 1px solid #FFBFCD;
+  }
+  .talc-app #talc-editor,
+  .talc-app #talc-results li .result-original {
+    width: 90%;
+    max-width: 90%;
   }
 }
