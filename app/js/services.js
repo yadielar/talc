@@ -29,7 +29,7 @@ angular.module('talcApp.services', []).
 				for (var i=0, x=contents.length; i < x; i++) {
 					var prevChar = contents.charAt(i-1),
 						nextChar = contents.charAt(i+1),
-						increaseLineCount = false;
+						endOfLine = false;
 					currentChar = contents.charAt(i);
 					clean[lineCount] = clean[lineCount] || {};
 					clean[lineCount].original = clean[lineCount].original || "";
@@ -45,16 +45,16 @@ angular.module('talcApp.services', []).
 							clean[lineCount].parsed += currentChar;
 						}
 					} else if (currentChar === ">") {
-						partialSum = true;
+						clean[lineCount].partialSum = true;
 					} else if (currentChar === "\n") {
-						increaseLineCount = true;
+						endOfLine = true;
 					}
-					if (increaseLineCount || (i+1) == x) {
-						if (partialSum) {
+					if (endOfLine || (i+1) == x) {
+						if (clean[lineCount].partialSum) {
 							clean[lineCount].result = this.getSum(clean);
-							partialSum = false;
 						} else {
 							clean[lineCount].result = this.getResult(clean[lineCount].parsed);
+							clean[lineCount].partialSum = false;
 						}
 						lineCount++;
 					}
