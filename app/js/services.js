@@ -10,13 +10,13 @@ angular.module('talcApp.services', []).
 		function ParsedContents(contents) {
 			this.lines = this.parse(contents);
 			this.results = this.getResults(this.lines);
-			this.sum = 0;
+			this.sum = this.getSum(this.results);
 		}
 		ParsedContents.prototype = {
+			operators: ["+","-","*","/","(",")"],
 			parse: function(contents) {
 				var currentChar,
 					lineCount = 0,
-					operators = ["+","-","*","/","(",")"],
 					clean = [];
 				for (var i=0, x=contents.length; i < x; i++) {
 					var prevChar = contents.charAt(i-1),
@@ -26,16 +26,14 @@ angular.module('talcApp.services', []).
 					clean[lineCount].original = clean[lineCount].original || "";
 					clean[lineCount].original += currentChar;
 					clean[lineCount].parsed = clean[lineCount].parsed || "";
-					if (operators.indexOf(currentChar) > -1 || isNumber(currentChar)) {
+
+					if (this.operators.indexOf(currentChar) > -1 || isNumber(currentChar)) {
 						clean[lineCount].parsed += currentChar;
 					} else if (currentChar === ".") {
 						if ( isNumber(prevChar) && isNumber(nextChar) ) {
 							clean[lineCount].parsed += currentChar;
 						}
 					} else if (currentChar === "\n") {
-						/*if (clean[lineCount] === undefined) {
-							clean[lineCount] = 0;
-						}*/
 						lineCount++;
 					}
 				}
@@ -51,9 +49,16 @@ angular.module('talcApp.services', []).
 					} catch(err) {
 						console.log(lines[i].parsed+" is not a valid expression.");
 					}
-					results[i].val = results[i].val || "";
+					results[i].val = results[i].val || null;
 				}
 				return results;
+			},
+			getSum: function(results) {
+				var sum = 0;
+				for (var i=0, x=results.length; i < x; i++) {
+					sum += results[i].val;
+				}
+				return sum;
 			}
 		};
 		return ParsedContents;

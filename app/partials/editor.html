@@ -1,4 +1,4 @@
-<article class="container" ng-controller="EditorController as editorCtrl">
+<section class="container" ng-controller="EditorController as editorCtrl">
 	<div class="talc-wrapper">
 		<textarea
 			name="talc-sheet"
@@ -19,4 +19,5 @@
 			</li>
 		</ul>
 	</div>
-</article>
+	<div class="total">Total: {{parsedContents.sum}}</div>
+</section>
