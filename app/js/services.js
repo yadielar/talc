@@ -33,7 +33,6 @@ angular.module('talcApp.services', []).
 	factory('ParsedContents', ['isNumber', 'Line', function(isNumber, Line) {
 		function ParsedContents(contents) {
 			this.lines = this.parse(contents);
-			this.sum = this.getSum(this.lines);
 		}
 		ParsedContents.prototype = {
 			operators: ["+","-","*","/","(",")"],
