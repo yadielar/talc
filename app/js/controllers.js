@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('talcApp.controllers', [])
-	.controller('EditorController', ['$scope', 'ParsedContents', function($scope, ParsedContents) {
-		$scope.editorContents = localStorage.getItem('talcContent') || "";
+	.controller('EditorController', ['$scope', 'ParsedContents', 'guide', function($scope, ParsedContents, guide) {
+		$scope.editorContents = localStorage.getItem('talcContent') || guide;
 		$scope.parsedContents = {};
 		this.save = function(){
 			localStorage.setItem('talcContent', $scope.editorContents);
@@ -20,6 +20,7 @@ angular.module('talcApp.controllers', [])
 			console.log($scope.parsedContents);
 			this.save();
 		};
+
 	}])
 	.controller('SettingsController', ['$scope', function($scope) {
 

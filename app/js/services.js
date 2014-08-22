@@ -3,14 +3,21 @@
 /* Services */
 
 angular.module('talcApp.services', []).
+	value('guide', 
+		"Talc is a text calculator. Powder in some text and numbers like this:\n\n"+
+		"Pizza Party:\n"+
+		"4 cokes * $2 each + 1 pepperoni pizza * $6 each\n"+
+		"3 breadsticks * $3 each + 2 cheese pizzas * $5 each\n"+
+		"Total >\n\n"+
+		"Use operators (+,-,*,/) to make calculations and > to get the sum of all preceding lines."
+	).
 	value('isNumber', function(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}).
 	factory('ParsedContents', ['isNumber', function(isNumber) {
 		function ParsedContents(contents) {
 			this.lines = this.parse(contents);
-			this.results = this.getResults(this.lines);
-			this.sum = this.getSum(this.results);
+			this.sum = this.getSum(this.lines);
 		}
 		ParsedContents.prototype = {
 			operators: ["+","-","*","/","(",")"],
@@ -37,28 +44,28 @@ angular.module('talcApp.services', []).
 						lineCount++;
 					}
 				}
+				this.getResults(clean);
 				return clean;
 			},
 			getResults: function(lines) {
-				var results = [];
 				for (var i=0, x=lines.length; i < x; i++) {
-					results[i] = {};
-					results[i].original = lines[i].original;
 					try {
-						results[i].val = eval(lines[i].parsed);
+						lines[i].result = eval(lines[i].parsed);
 					} catch(err) {
 						console.log(lines[i].parsed+" is not a valid expression.");
 					}
-					results[i].val = results[i].val || null;
+					lines[i].result = lines[i].result || null;
 				}
-				return results;
 			},
-			getSum: function(results) {
+			getSum: function(lines) {
 				var sum = 0;
-				for (var i=0, x=results.length; i < x; i++) {
-					sum += results[i].val;
+				for (var i=0, x=lines.length; i < x; i++) {
+					sum += lines[i].result;
 				}
 				return sum;
+			},
+			getPartialSum: function(lines) {
+				
 			}
 		};
 		return ParsedContents;

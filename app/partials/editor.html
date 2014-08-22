@@ -13,9 +13,9 @@
 			<input type="button" id="clear" value="Clear" ng-click="editorCtrl.clear()"/>
 		</div-->
 		<ul id="talc-results" ng-init="editorCtrl.parse()">
-			<li ng-repeat="result in parsedContents.results">
-				<div class="result-original">{{result.original}}&nbsp;</div>
-				<div class="result-num">{{result.val}}</span>
+			<li ng-repeat="line in parsedContents.lines">
+				<div class="result-original">{{line.original}}&nbsp;</div>
+				<div class="result-num">{{line.result}}</span>
 			</li>
 		</ul>
 	</div>
