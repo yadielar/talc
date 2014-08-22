@@ -15,7 +15,7 @@
 		<ul id="talc-results" ng-init="editorCtrl.parse()">
 			<li ng-repeat="line in parsedContents.lines">
 				<div class="result-original">{{line.original}}&nbsp;</div>
-				<div class="result-num">{{line.result}}</span>
+				<div class="result-num">{{line.result | toFixed}}</span>
 			</li>
 		</ul>
 	</div>

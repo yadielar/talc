@@ -3,8 +3,16 @@
 /* Filters */
 
 angular.module('talcApp.filters', []).
-  filter('interpolate', ['version', function(version) {
-    return function(text) {
-      return String(text).replace(/\%VERSION\%/mg, version);
+  filter('toFixed', ['isNumber', 'Settings', function(isNumber, Settings) {
+    return function(x) {
+    	if (Settings.decimalPlaces) {
+	    	if (isNumber(x)) {
+	    		return parseFloat(x).toFixed(Settings.decimalPlaces);
+	    	} else {
+	    		return x;
+	    	}
+    	} else {
+    		return x;
+    	}
     };
   }]);

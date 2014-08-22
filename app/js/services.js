@@ -16,6 +16,11 @@ angular.module('talcApp.services', []).
 	value('isNumber', function(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}).
+	factory('Settings', function() {
+		return {
+			decimalPlaces: false
+		};
+	}).
 	factory('Line', ['isNumber', function(isNumber) {
 		function Line() {
 			this.original = "";
@@ -59,7 +64,6 @@ angular.module('talcApp.services', []).
 					if (endOfLine || (i+1) == x) {
 						if (lines[count].partialSum) {
 							var lastSum = 0;
-							console.log(lines.length-2);
 							for (var j=lines.length-2; j >= 0; j--) {
 								if (lines[j].partialSum) {
 									lastSum = j;
@@ -84,7 +88,6 @@ angular.module('talcApp.services', []).
 					console.log(expression+" is not a valid expression.");
 				}
 				return result || null;
-				//lines[i].result = lines[i].result || null;
 			},
 			getSum: function(lines) {
 				var sum = 0;
