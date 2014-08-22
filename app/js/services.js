@@ -8,13 +8,24 @@ angular.module('talcApp.services', []).
 		"Pizza Party:\n"+
 		"4 cokes * $1.50 each + 1 pepperoni pizza * $6 each\n"+
 		"3 breadsticks * $3.50 each + 2 cheese pizzas * $5 each\n"+
+		"Subtotal >\n"+
+		"Tax: $32.5 * 0.05\n"+
 		"Total >\n\n"+
-		"Use operators (+,-,*,/) to make calculations and > to get the sum of all preceding lines."
+		"Use operators (+,-,*,/) to make calculations and > to get the sum of all preceding lines up to the last partial sum."
 	).
 	value('isNumber', function(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}).
-	factory('ParsedContents', ['isNumber', function(isNumber) {
+	factory('Line', ['isNumber', function(isNumber) {
+		function Line() {
+			this.original = "";
+			this.parsed = "";
+			this.partialSum = false;
+			this.result = null;
+		}
+		return Line;
+	}]).
+	factory('ParsedContents', ['isNumber', 'Line', function(isNumber, Line) {
 		function ParsedContents(contents) {
 			this.lines = this.parse(contents);
 			this.sum = this.getSum(this.lines);
@@ -23,43 +34,48 @@ angular.module('talcApp.services', []).
 			operators: ["+","-","*","/","(",")"],
 			parse: function(contents) {
 				var currentChar,
-					lineCount = 0,
-					partialSum = false,
-					clean = [];
+					count = 0,
+					lines = [];
 				for (var i=0, x=contents.length; i < x; i++) {
 					var prevChar = contents.charAt(i-1),
 						nextChar = contents.charAt(i+1),
 						endOfLine = false;
-					currentChar = contents.charAt(i);
-					clean[lineCount] = clean[lineCount] || {};
-					clean[lineCount].original = clean[lineCount].original || "";
-					clean[lineCount].parsed = clean[lineCount].parsed || "";
-					clean[lineCount].result = clean[lineCount].result || null;
 
-					clean[lineCount].original += currentChar;
+					currentChar = contents.charAt(i);
+					lines[count] = lines[count] || new Line();
+					lines[count].original += currentChar;
 
 					if (this.operators.indexOf(currentChar) > -1 || isNumber(currentChar)) {
-						clean[lineCount].parsed += currentChar;
+						lines[count].parsed += currentChar;
 					} else if (currentChar === ".") {
 						if ( isNumber(prevChar) && isNumber(nextChar) ) {
-							clean[lineCount].parsed += currentChar;
+							lines[count].parsed += currentChar;
 						}
 					} else if (currentChar === ">") {
-						clean[lineCount].partialSum = true;
+						lines[count].partialSum = true;
 					} else if (currentChar === "\n") {
 						endOfLine = true;
 					}
 					if (endOfLine || (i+1) == x) {
-						if (clean[lineCount].partialSum) {
-							clean[lineCount].result = this.getSum(clean);
+						if (lines[count].partialSum) {
+							var lastSum = 0;
+							console.log(lines.length-2);
+							for (var j=lines.length-2; j >= 0; j--) {
+								if (lines[j].partialSum) {
+									lastSum = j;
+									break;
+								}
+							}
+							var sumSection = lines.slice(lastSum);
+							lines[count].result = this.getSum(sumSection);
 						} else {
-							clean[lineCount].result = this.getResult(clean[lineCount].parsed);
-							clean[lineCount].partialSum = false;
+							lines[count].result = this.getResult(lines[count].parsed);
+							lines[count].partialSum = false;
 						}
-						lineCount++;
+						count++;
 					}
 				}
-				return clean;
+				return lines;
 			},
 			getResult: function(expression) {
 				try {
