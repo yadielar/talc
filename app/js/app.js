@@ -10,7 +10,7 @@ angular.module('talcApp', [
   'talcApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/editor', {templateUrl: 'partials/editor.html', controller: 'EditorController'});
-  $routeProvider.when('/settings', {templateUrl: 'partials/settings.html', controller: 'SettingsController'});
+  $routeProvider.when('/editor', {templateUrl: 'partials/editor.html'});
+  $routeProvider.when('/settings', {templateUrl: 'partials/settings.html'});
   $routeProvider.otherwise({redirectTo: '/editor'});
 }]);
