@@ -6,8 +6,8 @@ angular.module('talcApp.services', []).
 	value('guide', 
 		"Talc is a text calculator. Powder in some text and numbers like this:\n\n"+
 		"Pizza Party:\n"+
-		"4 cokes * $2 each + 1 pepperoni pizza * $6 each\n"+
-		"3 breadsticks * $3 each + 2 cheese pizzas * $5 each\n"+
+		"4 cokes * $1.50 each + 1 pepperoni pizza * $6 each\n"+
+		"3 breadsticks * $3.50 each + 2 cheese pizzas * $5 each\n"+
 		"Total >\n\n"+
 		"Use operators (+,-,*,/) to make calculations and > to get the sum of all preceding lines."
 	).
@@ -24,15 +24,19 @@ angular.module('talcApp.services', []).
 			parse: function(contents) {
 				var currentChar,
 					lineCount = 0,
+					partialSum = false,
 					clean = [];
 				for (var i=0, x=contents.length; i < x; i++) {
 					var prevChar = contents.charAt(i-1),
-						nextChar = contents.charAt(i+1);
+						nextChar = contents.charAt(i+1),
+						increaseLineCount = false;
 					currentChar = contents.charAt(i);
 					clean[lineCount] = clean[lineCount] || {};
 					clean[lineCount].original = clean[lineCount].original || "";
-					clean[lineCount].original += currentChar;
 					clean[lineCount].parsed = clean[lineCount].parsed || "";
+					clean[lineCount].result = clean[lineCount].result || null;
+
+					clean[lineCount].original += currentChar;
 
 					if (this.operators.indexOf(currentChar) > -1 || isNumber(currentChar)) {
 						clean[lineCount].parsed += currentChar;
@@ -40,22 +44,31 @@ angular.module('talcApp.services', []).
 						if ( isNumber(prevChar) && isNumber(nextChar) ) {
 							clean[lineCount].parsed += currentChar;
 						}
+					} else if (currentChar === ">") {
+						partialSum = true;
 					} else if (currentChar === "\n") {
+						increaseLineCount = true;
+					}
+					if (increaseLineCount || (i+1) == x) {
+						if (partialSum) {
+							clean[lineCount].result = this.getSum(clean);
+							partialSum = false;
+						} else {
+							clean[lineCount].result = this.getResult(clean[lineCount].parsed);
+						}
 						lineCount++;
 					}
 				}
-				this.getResults(clean);
 				return clean;
 			},
-			getResults: function(lines) {
-				for (var i=0, x=lines.length; i < x; i++) {
-					try {
-						lines[i].result = eval(lines[i].parsed);
-					} catch(err) {
-						console.log(lines[i].parsed+" is not a valid expression.");
-					}
-					lines[i].result = lines[i].result || null;
+			getResult: function(expression) {
+				try {
+					var result = eval(expression);
+				} catch(err) {
+					console.log(expression+" is not a valid expression.");
 				}
+				return result || null;
+				//lines[i].result = lines[i].result || null;
 			},
 			getSum: function(lines) {
 				var sum = 0;
@@ -63,9 +76,6 @@ angular.module('talcApp.services', []).
 					sum += lines[i].result;
 				}
 				return sum;
-			},
-			getPartialSum: function(lines) {
-				
 			}
 		};
 		return ParsedContents;
