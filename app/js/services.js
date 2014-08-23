@@ -6,10 +6,10 @@ angular.module('talcApp.services', []).
 	value('guide', 
 		"Talc is a text calculator. Powder in some text and numbers like this:\n\n"+
 		"Pizza Party:\n"+
-		"4 cokes * $1.50 each + 1 pepperoni pizza * $6 each\n"+
-		"3 breadsticks * $3.50 each + 2 cheese pizzas * $5 each\n"+
+		"4 cokes * $1.50 each\n"+
+		"2 pizzas * $6 each\n"+
 		"Subtotal >\n"+
-		"Tax: $32.5 * 0.05\n"+
+		"Tax $18 * 0.05\n"+
 		"Total >\n\n"+
 		"Use operators (+,-,*,/) to make calculations and > to get the sum of all preceding lines up to the last partial sum."
 	).
