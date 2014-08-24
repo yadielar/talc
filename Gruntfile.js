@@ -14,7 +14,8 @@ module.exports = function(grunt) {
 			    	{expand: true, src: ['fonts/*'], dest: 'online/'},
 			    	{expand: true, src: ['img/*'], dest: 'online/'},
 			    	{expand: true, src: ['js/*'], dest: 'online/'},
-			    	{expand: true, src: ['partials/*'], dest: 'online/'}
+			    	{expand: true, src: ['partials/*'], dest: 'online/'},
+			    	{expand: true, src: ['index.html'], dest: 'online/'}
 			    ]
 		    }
 		},
