@@ -1,0 +1,110 @@
+/* app css stylesheet */
+
+html, body {
+  background-color: #FFF2F5;
+}
+.talc-app .navbar {
+  background-color: #FF7D97;
+  border-color: #FF7D97;
+  margin-bottom: 0;
+}
+.talc-app .navbar-nav {
+  margin: 0 -15px;
+}
+.talc-app .navbar-right {
+  float: right!important;
+}
+.talc-app .navbar-brand,
+.talc-app .navbar-nav .settings {
+  display: inline-block;
+  border: 0;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+  background-repeat: no-repeat;
+  padding: 0;
+}
+.talc-app .navbar-brand {
+  background-image: url(../img/talc-logo.svg);
+  width: 83px;
+  height: 28px;
+  margin: 10px 0 !important;
+}
+.talc-app .navbar-nav .settings {
+  background-image: url(../img/settings.svg);
+  width: 21px;
+  height: 21px;
+  margin: 0 15px;
+}
+.talc-view .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.talc-app .talc-wrapper {
+  position: relative;
+  background-color: #FFE6EB;
+}
+/* START: Mirrored styles between editor & results */
+.talc-app #talc-editor,
+.talc-app #talc-results {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 16px;
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+.talc-app #talc-editor,
+.talc-app #talc-results li .result-original {
+  width: 85%;
+  max-width: 85%;
+}
+/* END: Mirrored styles between editor & results */
+.talc-app #talc-editor {
+  position: relative;
+  padding: 10px;
+  height: 480px;
+  border: none;
+  background-color: white;
+  z-index: 100;
+}
+.talc-app #talc-editor:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+.talc-app #talc-results {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 10px;
+  margin: 0;
+}
+.talc-app #talc-results li {
+  position: relative;
+  list-style: none;
+}
+.talc-app #talc-results li .result-original {
+  position: relative;
+  z-index: 50;
+}
+.talc-app #talc-results li .result-num {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  font-weight: bold;
+  z-index: 200;
+}
+
+@media (min-width: 768px) {
+  .talc-app .talc-wrapper {
+    margin-top: 20px;
+    border: 1px solid #FFBFCD;
+  }
+  .talc-app #talc-editor,
+  .talc-app #talc-results li .result-original {
+    width: 90%;
+    max-width: 90%;
+  }
+}
