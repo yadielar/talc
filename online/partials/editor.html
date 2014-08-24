@@ -1,0 +1,22 @@
+<section class="container" ng-controller="EditorController as editorCtrl">
+	<div class="talc-wrapper">
+		<textarea
+			name="talc-sheet"
+			id="talc-editor"
+			placeholder="Write something here..."
+			ng-model="editorContents"
+			ng-change="editorCtrl.parse()"
+			autofocus
+		>{{editorContents}}
+		</textarea>
+		<!--div>
+			<input type="button" id="clear" value="Clear" ng-click="editorCtrl.clear()"/>
+		</div-->
+		<ul id="talc-results" ng-init="editorCtrl.parse()">
+			<li ng-repeat="line in parsedContents.lines">
+				<div class="result-original">{{line.original}}&nbsp;</div>
+				<div class="result-num">{{line.result | toFixed}}</span>
+			</li>
+		</ul>
+	</div>
+</section>
