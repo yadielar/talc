@@ -10,12 +10,11 @@ module.exports = function(grunt) {
 			    	{expand: true, src: ['bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js'], dest: 'online/'},
 			    	{expand: true, src: ['bower_components/angular/angular.js'], dest: 'online/'},
 			    	{expand: true, src: ['bower_components/angular-route/angular-route.js'], dest: 'online/'},
-			    	{expand: true, src: ['js/app.js'], dest: 'online/'},
-			    	{expand: true, src: ['js/services.js'], dest: 'online/'},
-			    	{expand: true, src: ['js/controllers.js'], dest: 'online/'},
-			    	{expand: true, src: ['js/filters.js'], dest: 'online/'},
-			    	{expand: true, src: ['js/directives.js'], dest: 'online/'},
-
+			    	{expand: true, src: ['css/*'], dest: 'online/'},
+			    	{expand: true, src: ['fonts/*'], dest: 'online/'},
+			    	{expand: true, src: ['img/*'], dest: 'online/'},
+			    	{expand: true, src: ['js/*'], dest: 'online/'},
+			    	{expand: true, src: ['partials/*'], dest: 'online/'}
 			    ]
 		    }
 		},
