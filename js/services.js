@@ -18,7 +18,7 @@ angular.module('talcApp.services', []).
 	}).
 	factory('Settings', function() {
 		return {
-			decimalPlaces: false
+			decimalPlaces: 2
 		};
 	}).
 	factory('Line', ['isNumber', function(isNumber) {

@@ -36,13 +36,14 @@ html, body {
   height: 21px;
   margin: 0 15px;
 }
-.talc-view .container {
+.talc-view .container-fluid {
   padding-left: 0;
   padding-right: 0;
 }
 .talc-app .talc-wrapper {
   position: relative;
-  background-color: #FFE6EB;
+  background-color: white;
+  /*background-color: #FFE6EB;*/
 }
 /* START: Mirrored styles between editor & results */
 .talc-app #talc-editor,
@@ -64,6 +65,7 @@ html, body {
   height: 480px;
   border: none;
   background-color: white;
+  resize: none;
   z-index: 100;
 }
 .talc-app #talc-editor:focus {
@@ -98,6 +100,10 @@ html, body {
 }
 
 @media (min-width: 768px) {
+  .talc-view .container-fluid {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
   .talc-app .talc-wrapper {
     margin-top: 20px;
     border: 1px solid #FFBFCD;

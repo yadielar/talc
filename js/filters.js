@@ -7,7 +7,7 @@ angular.module('talcApp.filters', []).
     return function(x) {
     	if (Settings.decimalPlaces) {
 	    	if (isNumber(x)) {
-	    		return parseFloat(x).toFixed(Settings.decimalPlaces);
+	    		return parseFloat(parseFloat(x).toFixed(Settings.decimalPlaces));
 	    	} else {
 	    		return x;
 	    	}
