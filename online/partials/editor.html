@@ -4,9 +4,9 @@
 			name="talc-sheet"
 			id="talc-editor"
 			placeholder="Write something here..."
+			tabindex="-1"
 			ng-model="editorContents"
 			ng-change="editorCtrl.parse()"
-			autofocus
 		>{{editorContents}}
 		</textarea>
 		<!--div>
